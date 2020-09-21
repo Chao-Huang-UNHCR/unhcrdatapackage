@@ -278,22 +278,45 @@ The GDP data in many countries/years (i.e. Syria, North Korea, Somalia, Eritrea 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
-# Syria GDP, the GDP data are saved in a csv file 
-SYR <- read.csv("data-raw/SYR_GDP.csv")
-SYR <- SYR[,-1]
-YEAR <- c(2000:2018)
-for (i in YEAR) {
-  wb_data[which(wb_data$iso == "SYR" & wb_data$year == i),"gdp"] <- SYR[which(SYR$iso == "SYR" & SYR$year == i),"gdp"]
-}
+# Syria GDP, since 2008, https://countryeconomy.com/gdp/syria
 
-# North Korea GDP
-PRK <- read.csv("data-raw/North_korea_gdp.csv")
-PRK <- PRK[,-1]
-for (i in YEAR) {
-  wb_data[which(wb_data$iso == "PRK" & wb_data$year == i),"gdp"] <- PRK[which(PRK$iso == "PRK" & PRK$year == i),"gdp"]
-}
+wb_data[which(wb_data$iso == "SYR" & wb_data$year >2007), 'gdp'] <- c(52631e6, # 2008   #
+                                                                    53939e6, # 2009   #
+                                                                    60043e6, # 2010   #
+                                                                    67293e6, # 2011   #
+                                                                    73672e6, # 2012   #
+                                                                    27016e6, # 2013   #
+                                                                    23114e6, # 2014   #
+                                                                    19090e6, # 2015   #
+                                                                    12377e6, # 2016   #
+                                                                    15183e6, # 2017   #
+                                                                    NA,   # 2018   #
+                                                                    NA) # 2019
 
-# Somalia, or you can input the gdp data as an assay
+# North Korea GDP, https://countryeconomy.com/gdp/north-korea
+
+wb_data[which(wb_data$iso == "PRK"), 'gdp'] <- c(10608e6, # 2000   #
+                                                 11022e6, # 2001   #
+                                                 10910e6, # 2002   #
+                                                 11051e6, # 2003   #
+                                                 11168e6, # 2004   #
+                                                 13031e6, # 2005   #
+                                                 13764e6, # 2006   #
+                                                 14375e6, # 2007   #
+                                                 13337e6, # 2008   #
+                                                 12035e6, # 2009   #
+                                                 13945e6, # 2010   #
+                                                 15689e6, # 2011   #
+                                                 15907e6, # 2012   #
+                                                 16565e6, # 2013   #
+                                                 17396e6, # 2014   #
+                                                 16283e6, # 2015   #
+                                                 16789e6, # 2016   #
+                                                 17365e6, # 2017   #
+                                                 NA     , # 2018   #
+                                                 NA) # 2019
+
+# Somalia GDP, https://countryeconomy.com/gdp/somalia
 
 wb_data[which(wb_data$iso == "SOM"), 'gdp'] <- c(2052e6, # 2000   #
                                                  1303e6, # 2001   #
